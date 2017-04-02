@@ -1,0 +1,17 @@
+{
+  "name": "ecsDeploy",
+  "version": "1.0.0",
+  "description": "Lamda deploy fn for dockera",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "zip": "zip -r ../ecsDeploy.zip *",
+    "s3": "aws s3 cp ../ecsDeploy.zip ${npm_config_s3_bucket_url}",
+    "updateLambda": "aws lambda update-function-code --function-name \"${npm_config_lambda_function}\" --s3-bucket \"${npm_config_s3_bucket}\" --s3-key \"ecsDeploy.zip\"",
+    "deploy": "npm run zip && npm run s3 && npm run updateLambda"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.20.0",
+    "events": "^1.1.1"
+  }
+}
